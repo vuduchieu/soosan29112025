@@ -6,7 +6,7 @@ import { getBlogCategories } from '../utils/blogCategories';
 import { OptimizedImage } from '../components/ui/optimized-image.tsx';
 
 const sortedPosts = await getVisibleBlogPosts();
-const { categoryMap, categoryInfoMap } = await getBlogCategories();
+const { categoryMap, categoryInfoMap, getCategorySlug } = await getBlogCategories();
 ---
 
 <BaseLayout
@@ -20,9 +20,11 @@ const { categoryMap, categoryInfoMap } = await getBlogCategories();
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="md:col-span-2">
           <div class="space-y-8">
-            {sortedPosts.map((post) => (
+            {sortedPosts.map((post) => {
+              const categorySlug = getCategorySlug(post.category);
+              return (
               <article key={post.slug} class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                <a href={`/blog/${post.slug}`} class="block">
+                <a href={`/blog/${categorySlug}/${post.slug}`} class="block">
                   {post.images && post.images[0] && (
                     <OptimizedImage
                       client:load
@@ -62,7 +64,8 @@ const { categoryMap, categoryInfoMap } = await getBlogCategories();
                   </div>
                 </a>
               </article>
-            ))}
+            );
+            })}
           </div>
         </div>
 

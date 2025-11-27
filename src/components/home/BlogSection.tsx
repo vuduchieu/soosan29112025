@@ -251,7 +251,7 @@ const BlogSection = ({ posts, categories, categoryInfoMap }: BlogSectionProps) =
   // Tạo URL cho bài viết dựa trên danh mục
   const getPostUrl = (blogPost: BlogPost) => {
     const categorySlug = getCategorySlug(blogPost.category);
-    return `/${categorySlug}/${blogPost.slug}`;
+    return `/blog/${categorySlug}/${blogPost.slug}`;
   };
 
   return (

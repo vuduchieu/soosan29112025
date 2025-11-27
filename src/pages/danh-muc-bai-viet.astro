@@ -22,7 +22,7 @@ const { categoryMap, categoryInfoMap, getCategorySlug } = await getBlogCategorie
           <div class="space-y-8">
             {sortedPosts.map((post) => (
               <article key={post.slug} class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                <a href={`/${getCategorySlug(post.category)}/${post.slug}`} class="block">
+                <a href={`/blog/${getCategorySlug(post.category)}/${post.slug}`} class="block">
                   {post.images && post.images[0] && (
                     <OptimizedImage
                       client:load

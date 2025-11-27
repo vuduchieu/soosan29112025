@@ -47,7 +47,7 @@ const categorySlug = getCategorySlug(categoryId);
             <div class="space-y-8">
               {filteredPosts.map((post) => (
                 <article key={post.slug} class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                  <a href={`/${categorySlug}/${post.slug}`} class="block">
+                  <a href={`/blog/${categorySlug}/${post.slug}`} class="block">
                     {post.images && post.images[0] && (
                       <OptimizedImage
                         client:load

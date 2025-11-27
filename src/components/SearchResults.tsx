@@ -127,7 +127,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ products, blogPosts, sear
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredBlogPosts.map((post) => (
               <Card key={post.slug} className="hover:shadow-lg transition-shadow">
-                <a href={`/${post.category}/${post.slug}`}>
+                <a href={`/blog/${post.category}/${post.slug}`}>
                   {post.image && (
                     <div className="aspect-video overflow-hidden rounded-t-lg">
                       <img

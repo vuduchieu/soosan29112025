@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import FloatingWidgets from '../components/FloatingWidgets';
+import GlobalSearch from '../components/GlobalSearch.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Xe Tải & Đầu Kéo - Chuyên cung cấp xe tải chất lượng",
+  description = "Chuyên cung cấp xe tải, đầu kéo, rơ moóc các loại. Tư vấn miễn phí, hỗ trợ vay vốn."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <script is:inline src="/search-enhanced.js"></script>
+  </head>
+  <body>
+    <slot />
+
+    <!-- Floating widgets: QuickContact + OrderNotification -->
+    <FloatingWidgets client:load />
+
+    <!-- Global search enhancement -->
+    <GlobalSearch />
+  </body>
+</html>

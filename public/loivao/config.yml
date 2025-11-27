@@ -1,0 +1,325 @@
+backend:
+  name: github
+  repo: Uhshoi1206/soosan251125
+  branch: main
+  site_domain: "soosan251125.netlify.app"
+  base_url: "https://api.netlify.com"
+
+site_url: "https://soosan251125.netlify.app"
+display_url: "https://soosan251125.netlify.app"
+
+media_folder: "public/assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: "vi"
+
+collections:
+  # Product Categories Collection
+  - name: "categories"
+    label: "Danh Mục Sản Phẩm"
+    label_singular: "Danh Mục Sản Phẩm"
+    folder: "src/content/categories"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "ID", name: "id", widget: "string", required: true }
+      - { label: "Tên Danh Mục", name: "name", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true }
+      - { label: "Mô Tả", name: "description", widget: "text", required: false }
+      - { label: "Từ Khóa", name: "keywords", widget: "list", required: false }
+      - { label: "Ẩn", name: "isHidden", widget: "boolean", default: false }
+      - { label: "Thứ Tự", name: "order", widget: "number", required: false }
+
+  # Blog Categories Collection
+  - name: "blog-categories"
+    label: "Danh Mục Bài Viết"
+    label_singular: "Danh Mục Bài Viết"
+    folder: "src/content/blog-categories"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "ID", name: "id", widget: "string", required: true }
+      - { label: "Tên Danh Mục", name: "name", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true }
+      - { label: "Mô Tả", name: "description", widget: "text", required: false }
+      - { label: "Icon", name: "icon", widget: "string", required: false, hint: "Tên icon từ lucide-react, ví dụ: Newspaper, TrendingUp" }
+      - { label: "Màu Sắc", name: "color", widget: "string", required: false, hint: "Mã màu hex, ví dụ: #3B82F6" }
+      - { label: "Ẩn", name: "isHidden", widget: "boolean", default: false }
+      - { label: "Thứ Tự", name: "order", widget: "number", required: false }
+
+  # Products Collection
+  - name: "products"
+    label: "Sản Phẩm"
+    label_singular: "Sản Phẩm"
+    folder: "src/content/products"
+    create: true
+    slug: "{{id}}"
+    extension: "json"
+    format: "json"
+    summary: "{{name}} - {{brand}}"
+    sortable_fields: ['name', 'brand', 'type', 'price', 'weight']
+    view_filters:
+      - label: "Loại Xe"
+        field: type
+        pattern: ''
+      - label: "Hãng Xe"
+        field: brand
+        pattern: ''
+      - label: "Ẩn"
+        field: isHidden
+        pattern: true
+    fields:
+      # Basic Information
+      - { label: "ID", name: "id", widget: "string", required: true }
+      - { label: "Tên Sản Phẩm", name: "name", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true }
+      - { label: "Hãng", name: "brand", widget: "string", required: true }
+      - label: "Loại Xe"
+        name: "type"
+        widget: "select"
+        options:
+          - { label: "Xe Tải", value: "xe-tai" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Cẩu", value: "xe-cau" }
+          - { label: "Sơ Mi Rơ Mooc", value: "mooc" }
+          - { label: "Xe Đầu Kéo", value: "dau-keo" }
+          - { label: "Xe Lu", value: "xe-lu" }
+
+      # Pricing
+      - { label: "Giá (VNĐ)", name: "price", widget: "number", required: false }
+      - { label: "Giá Hiển Thị", name: "priceText", widget: "string", required: false }
+
+      # Dimensions & Weight
+      - { label: "Trọng Tải Hiển Thị", name: "weightText", widget: "string", required: true }
+      - { label: "Trọng Tải (tấn)", name: "weight", widget: "number", required: true }
+      - { label: "Dài (m)", name: "length", widget: "number", required: true }
+      - { label: "Rộng (m)", name: "width", widget: "number", required: true }
+      - { label: "Cao (m)", name: "height", widget: "number", required: true }
+      - { label: "Kích Thước", name: "dimensions", widget: "string", required: true }
+
+      # Images
+      - { label: "Ảnh Đại Diện", name: "thumbnailUrl", widget: "string", required: true }
+      - { label: "Ảnh Sản Phẩm", name: "images", widget: "list", required: true }
+
+      # Status Flags
+      - { label: "Mới", name: "isNew", widget: "boolean", default: false }
+      - { label: "Nổi Bật", name: "isHot", widget: "boolean", default: false }
+      - { label: "Ẩn", name: "isHidden", widget: "boolean", default: false }
+      - { label: "Xuất Xứ", name: "origin", widget: "string", required: false }
+
+      # Descriptions
+      - { label: "Mô Tả Ngắn", name: "description", widget: "text", required: false }
+      - { label: "Mô Tả Chi Tiết", name: "detailedDescription", widget: "markdown", required: false }
+      - { label: "Tính Năng", name: "features", widget: "list", required: false }
+
+      # Engine Specifications
+      - { label: "Model Động Cơ", name: "engineModel", widget: "string", required: false }
+      - { label: "Dung Tích Động Cơ", name: "engineCapacity", widget: "string", required: false }
+      - { label: "Công Suất Động Cơ", name: "enginePower", widget: "string", required: false }
+      - { label: "Mô-men Xoắn", name: "engineTorque", widget: "string", required: false }
+      - { label: "Tiêu Chuẩn Khí Thải", name: "emissionStandard", widget: "string", required: false }
+
+      # Note: specifications field removed from CMS (Sveltia limitation with object widget)
+      - { label: "Thứ Tự Sắp Xếp", name: "order", widget: "number", required: false }
+
+  # Blog Posts Collection
+  - name: "blog"
+    label: "Bài Viết"
+    label_singular: "Bài Viết"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} - {{category}}"
+    sortable_fields: ['title', 'publishDate', 'category']
+    view_filters:
+      - label: "Danh Mục"
+        field: category
+        pattern: ''
+      - label: "Ẩn"
+        field: isHidden
+        pattern: true
+    fields:
+      - { label: "ID", name: "id", widget: "string", required: true }
+      - { label: "Tiêu Đề", name: "title", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true }
+      - { label: "Mô Tả", name: "description", widget: "text", required: true }
+
+      - label: "Danh Mục"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Tin Tức Ngành Vận Tải", value: "tin-tuc-nganh-van-tai" }
+          - { label: "Đánh Giá Xe", value: "product-review" }
+          - { label: "Kinh Nghiệm Lái Xe", value: "driver-tips" }
+          - { label: "Bảo Dưỡng", value: "maintenance" }
+          - { label: "Tư Vấn Mua Xe", value: "buying-guide" }
+          - { label: "Công Nghệ & Đổi Mới", value: "technology" }
+
+      - { label: "Ảnh", name: "images", widget: "list", required: true }
+      - { label: "Ngày Đăng (timestamp)", name: "publishDate", widget: "number", required: true }
+      - { label: "Thời Gian Đọc (phút)", name: "readTime", widget: "number", required: true }
+      - { label: "Tác Giả", name: "author", widget: "string", required: true }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Lượt Xem", name: "views", widget: "number", default: 0 }
+      - { label: "Bình Luận", name: "comments", widget: "number", default: 0 }
+      - { label: "Ẩn", name: "isHidden", widget: "boolean", default: false }
+      - { label: "Nội Dung", name: "body", widget: "markdown", required: true }
+      - { label: "Thứ Tự Sắp Xếp", name: "order", widget: "number", required: false }

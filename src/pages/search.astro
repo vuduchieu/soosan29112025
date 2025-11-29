@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import TruckItem from '../components/TruckItem';
 import { getVisibleProducts } from '../utils/contentCollections';
 import { getCollection } from 'astro:content';
+import { getBlogCategories } from '../utils/blogCategories';
 
 let visibleTrucks = [];
 let blogPosts = [];
@@ -15,6 +16,7 @@ let errorMessage = '';
 try {
   visibleTrucks = await getVisibleProducts() || [];
   const allBlogPosts = await getCollection('blog') || [];
+  const { getCategorySlug } = await getBlogCategories();
 
   blogPosts = allBlogPosts
     .filter(post => post?.data && !post.data.isHidden)
@@ -24,6 +26,7 @@ try {
       description: post.data.description || '',
       excerpt: post.data.excerpt || '',
       category: post.data.category || '',
+      categorySlug: getCategorySlug(post.data.category),
       publishDate: post.data.publishDate || new Date(),
       image: post.data.image || ''
     }));
@@ -178,7 +181,7 @@ console.log('[search.astro] Search results:', {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredBlogPosts.map((post) => (
                 <article class="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-                  <a href={`/${post.category}/${post.slug}`} class="block">
+                  <a href={`/blog/${post.categorySlug}/${post.slug}`} class="block">
                     {post.image && (
                       <div class="aspect-video overflow-hidden">
                         <img

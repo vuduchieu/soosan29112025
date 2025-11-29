@@ -3,10 +3,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Layout from '../components/Layout.tsx';
 import { getVisibleBlogPosts } from '../utils/contentCollections';
 import { getBlogCategories } from '../utils/blogCategories';
-import { OptimizedImage } from '../components/ui/optimized-image.tsx';
+import BlogCategoryFilter from '../components/blog/BlogCategoryFilter.tsx';
+import BlogCategorySection from '../components/blog/BlogCategorySection.tsx';
 
 const sortedPosts = await getVisibleBlogPosts();
-const { categoryMap, categoryInfoMap, getCategorySlug } = await getBlogCategories();
+const { categories, categoryMap, categoryInfoMap, getCategorySlug } = await getBlogCategories();
+
+const getPostUrl = (post: any) => {
+  const categorySlug = getCategorySlug(post.category);
+  return `/blog/${categorySlug}/${post.slug}`;
+};
+
+const postsByCategory = categories.reduce((acc, cat) => {
+  acc[cat.data.id] = sortedPosts.filter(post => post.category === cat.data.id);
+  return acc;
+}, {} as Record<string, any[]>);
 ---
 
 <BaseLayout
@@ -15,90 +26,55 @@ const { categoryMap, categoryInfoMap, getCategorySlug } = await getBlogCategorie
 >
   <Layout client:load>
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold mb-8">Tin Tức & Blog</h1>
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold mb-3 text-gray-900">Tin Tức & Blog</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Cập nhật tin tức mới nhất về ngành vận tải, đánh giá xe tải, xe cẩu, kinh nghiệm lái xe và bảo dưỡng
+        </p>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="md:col-span-2">
-          <div class="space-y-8">
-            {sortedPosts.map((post) => (
-              <article key={post.slug} class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                <a href={`/blog/${getCategorySlug(post.category)}/${post.slug}`} class="block">
-                  {post.images && post.images[0] && (
-                    <OptimizedImage
-                      client:load
-                      src={post.images[0]}
-                      alt={post.title}
-                      className="w-full h-64 object-cover"
-                      useCase="thumbnail"
-                    />
-                  )}
+      <BlogCategoryFilter
+        client:load
+        categories={categories.map(cat => ({
+          id: cat.data.id,
+          name: cat.data.name,
+          slug: cat.data.slug || cat.data.id,
+          description: cat.data.description,
+          icon: cat.data.icon,
+          color: cat.data.color,
+          order: cat.data.order
+        }))}
+      />
 
-                  <div class="p-6">
-                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                      <span class="bg-primary/10 text-primary px-3 py-1 rounded-full">
-                        {categoryMap[post.category] || post.category}
-                      </span>
-                      <time datetime={post.publishDate}>
-                        {new Date(post.publishDate).toLocaleDateString('vi-VN')}
-                      </time>
-                    </div>
+      <div class="space-y-12">
+        {categories.map((category) => {
+          const posts = postsByCategory[category.data.id];
+          if (!posts || posts.length === 0) return null;
 
-                    <h2 class="text-2xl font-bold mb-3 hover:text-primary transition">
-                      {post.title}
-                    </h2>
+          return (
+            <BlogCategorySection
+              client:load
+              key={category.data.id}
+              categoryName={category.data.name}
+              categorySlug={category.data.slug || category.data.id}
+              posts={posts}
+              getPostUrl={getPostUrl}
+            />
+          );
+        })}
+      </div>
 
-                    <p class="text-gray-600 mb-4 line-clamp-3">
-                      {post.description}
-                    </p>
-
-                    <div class="flex items-center justify-between">
-                      <span class="text-primary font-medium">
-                        Đọc thêm →
-                      </span>
-                      <span class="text-sm text-gray-500">
-                        {post.readTime}
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <aside class="space-y-6">
-          <div class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-xl font-bold mb-4">Danh mục</h3>
-            <ul class="space-y-2">
-              {Object.entries(categoryMap).map(([categoryId, label]) => {
-                const slug = categoryInfoMap[categoryId]?.slug || categoryId;
-                return (
-                  <li key={categoryId}>
-                    <a
-                      href={`/danh-muc-bai-viet/${slug}`}
-                      class="block py-2 px-3 rounded hover:bg-gray-100 transition"
-                    >
-                      {label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div class="bg-primary/5 rounded-lg p-6">
-            <h3 class="text-xl font-bold mb-4">Liên hệ tư vấn</h3>
-            <p class="text-gray-700 mb-4">
-              Cần tư vấn về xe tải, xe cẩu? Liên hệ ngay với chúng tôi!
-            </p>
-            <a
-              href="/lien-he"
-              class="block text-center bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition"
-            >
-              Liên hệ ngay
-            </a>
-          </div>
-        </aside>
+      <div class="mt-12 bg-primary/5 rounded-lg p-8 text-center">
+        <h3 class="text-2xl font-bold mb-3">Cần tư vấn về xe thương mại?</h3>
+        <p class="text-gray-700 mb-6 max-w-xl mx-auto">
+          Liên hệ ngay với chúng tôi để được tư vấn chi tiết về xe tải, xe cẩu, sơ mi rơ mooc và các sản phẩm khác
+        </p>
+        <a
+          href="/lien-he"
+          class="inline-block bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/90 transition font-medium"
+        >
+          Liên hệ ngay
+        </a>
       </div>
     </div>
   </Layout>

@@ -56,7 +56,7 @@ const postsByCategory = categories.reduce((acc, cat) => {
           const categorySlug = category.data.slug || category.data.id;
 
           return (
-            <section class="mb-12" key={category.data.id}>
+            <section class="mb-12" key={category.data.id} id={`category-${category.data.id}`}>
               <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl font-bold text-gray-900">{category.data.name}</h2>
                 <a
@@ -183,3 +183,28 @@ const postsByCategory = categories.reduce((acc, cat) => {
     </div>
   </Layout>
 </BaseLayout>
+
+<script>
+  function setupCategoryFilters() {
+    const filterButtons = document.querySelectorAll('[data-category-filter]');
+    filterButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const categoryId = (e.currentTarget as HTMLElement).getAttribute('data-category-id');
+        if (categoryId) {
+          const section = document.getElementById(`category-${categoryId}`);
+          if (section) {
+            const yOffset = -100;
+            const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCategoryFilters);
+  } else {
+    setupCategoryFilters();
+  }
+</script>

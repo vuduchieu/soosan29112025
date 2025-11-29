@@ -45,15 +45,29 @@ const BlogCategoryFilter = ({
           return (
             <button
               key={category.id}
-              onClick={() => onCategoryClick?.(category.id)}
+              onClick={() => {
+                if (onCategoryClick) {
+                  onCategoryClick(category.id);
+                } else {
+                  const section = document.getElementById(`category-${category.id}`);
+                  if (section) {
+                    const yOffset = -100;
+                    const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }
+              }}
+              data-category-filter
+              data-category-id={category.id}
               className={`
                 flex flex-col items-center justify-center
                 p-4 rounded-lg border-2 transition-all duration-300
                 min-w-[100px] sm:min-w-[120px]
+                cursor-pointer
                 ${
                   isActive
                     ? 'border-primary bg-primary/5 shadow-md scale-105'
-                    : 'border-gray-200 hover:border-primary/50 hover:bg-gray-50'
+                    : 'border-gray-200 hover:border-primary/50 hover:bg-gray-50 hover:scale-105'
                 }
               `}
             >

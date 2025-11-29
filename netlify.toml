@@ -5,3 +5,8 @@
 [functions]
   directory = ".netlify/v1/functions"
   node_bundler = "none"
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/danh-muc-bai-viet/:splat"
+  status = 301

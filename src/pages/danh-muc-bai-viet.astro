@@ -11,7 +11,7 @@ const { categories, categoryMap, categoryInfoMap, getCategorySlug } = await getB
 
 const getPostUrl = (post: any) => {
   const categorySlug = getCategorySlug(post.category);
-  return `/blog/${categorySlug}/${post.slug}`;
+  return `/danh-muc-bai-viet/${categorySlug}/${post.slug}`;
 };
 
 const postsByCategory = categories.reduce((acc, cat) => {
